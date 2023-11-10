@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div>
+        <h2>Question 1: Convert ASCII to small letter</h2>
+        <form action="" id="convertAscii">
+            <input type="text" id="asciiDec">
+            <button type="submit" value="submit">Convert</button>
+            <h4 id="asciiRes"></h4>
+        </form>
+    </div>
+    <div>
+        <h2>Question 2: Hex color code to greysale color code</h2>
+        <form action="" id="convertHex">
+            <input type="text" id="hexVal">
+            <button type="submit" value="submit">Convert</button>
+            <div id="hexRes"></div>
+        </form>
+    </div>
+
+    <script>
+        let q1Form = document.getElementById("convertAscii");
+        let q2Form = document.getElementById("convertHex");
+        let asciiRes = document.getElementById("asciiRes");
+        let hexRes = document.getElementById("hexRes")
+
+        q1Form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let asciiVal = parseInt(document.getElementById("asciiDec").value);
+            let char;
+
+            if (asciiVal >= 65 && asciiVal <= 90) {
+                char = String.fromCharCode(asciiVal + 32);
+            } else {
+                char = String.fromCharCode(asciiVal);
+            }
+            asciiRes.textContent = "Converted: " + char;
+        });
+
+
+        q2Form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let hexColor = document.getElementById("hexVal").value;
+
+            hexColor = hexColor.replace("#", "").toUpperCase();
+
+            const r = parseInt(hexColor.substr(0, 2), 16);
+            const g = parseInt(hexColor.substr(2, 2), 16);
+            const b = parseInt(hexColor.substr(4, 2), 16);
+
+            const greyscaleValue = 0.299 * r + 0.587 * g + 0.114 * b;
+
+            const greyscaleHex = "#" + (1 << 24 | greyscaleValue << 16 | greyscaleValue << 8 | greyscaleValue).toString(16).slice(1).toUpperCase();
+
+
+            hexRes.textContent = "Converted: " + greyscaleHex;
+
+            hexRes.style.backgroundColor = greyscaleHex;
+        });
+
+
+
+
+    </script>
+</body>
+</html>
